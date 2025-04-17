@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watchtower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: watchtower
+  template:
+    metadata:
+      labels:
+        app: watchtower
+    spec:
+      containers:
+      - name: watchtower
+        image: containrrr/watchtower
+        args: ["--interval", "30"]
+        volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker-sock
+        hostPath:
+          path: /var/run/docker.sock
