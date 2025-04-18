@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: predict-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: predict
+  template:
+    metadata:
+      labels:
+        app: predict
+    spec:
+      containers:
+      - name: predict-container
+        image: mertmenevse/predict:latest   # <-- Replace with your Docker Hub kullanıcı adınız
+        ports:
+        - containerPort: 5000
